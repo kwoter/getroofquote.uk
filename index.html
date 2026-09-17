@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get a free solar quote for your home | RoofQuote UK</title>
+  <meta name="description" content="Request a no-obligation solar quote. We connect UK homeowners with one local MCS-certified installer partner." />
+  <meta name="theme-color" content="#0B6E4F" />
+  <style>
+    :root {
+      --green: #0B6E4F;
+      --green-dark: #084c37;
+      --teal: #1B9AAA;
+      --bg: #f6faf8;
+      --card: #ffffff;
+      --text: #14201b;
+      --muted: #5a6b63;
+      --line: #d7e5de;
+      --danger: #b42318;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(11, 110, 79, 0.08);
+      --font: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background: linear-gradient(180deg, #eef7f3 0%, var(--bg) 42%, #fff 100%);
+      line-height: 1.5;
+    }
+    a { color: var(--green); }
+    .wrap { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 0; gap: 1rem;
+    }
+    .logo {
+      font-weight: 750; letter-spacing: -0.02em; font-size: 1.15rem;
+      color: var(--green-dark); text-decoration: none;
+    }
+    .logo span { color: var(--teal); }
+    .badge {
+      font-size: 0.75rem; color: var(--muted); background: #fff;
+      border: 1px solid var(--line); border-radius: 999px; padding: 0.35rem 0.7rem;
+    }
+    .hero {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem;
+      align-items: start; padding: 0.5rem 0 2.25rem;
+    }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.55rem); line-height: 1.15;
+      letter-spacing: -0.03em; margin: 0 0 0.75rem;
+    }
+    .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 1.25rem; max-width: 36rem; }
+    .bullets { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+    .bullets li {
+      position: relative; padding-left: 1.7rem; margin: 0.55rem 0;
+    }
+    .bullets li::before {
+      content: ""; position: absolute; left: 0; top: 0.35rem;
+      width: 1rem; height: 1rem; border-radius: 50%;
+      background: var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2' d='M3.5 8.5l3 3 6-6'/%3E%3C/svg%3E") center/10px no-repeat;
+    }
+    .trust-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .trust-pills span {
+      font-size: 0.8rem; background: #fff; border: 1px solid var(--line);
+      border-radius: 8px; padding: 0.4rem 0.65rem; color: var(--muted);
+    }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 4px); box-shadow: var(--shadow);
+      padding: 1.25rem;
+    }
+    .card h2 { margin: 0 0 0.25rem; font-size: 1.2rem; }
+    .card .sub { margin: 0 0 1rem; color: var(--muted); font-size: 0.92rem; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; margin: 0.7rem 0 0.3rem; }
+    input, select, button { width: 100%; font: inherit; border-radius: 10px; }
+    input, select {
+      border: 1px solid var(--line); padding: 0.75rem 0.8rem; background: #fff;
+    }
+    input:focus, select:focus {
+      outline: 2px solid rgba(27, 154, 170, 0.35); border-color: var(--teal);
+    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+    .check {
+      display: flex; gap: 0.65rem; align-items: flex-start;
+      margin: 0.9rem 0; font-size: 0.82rem; color: var(--muted); font-weight: 400;
+    }
+    .check input { width: auto; margin-top: 0.2rem; flex-shrink: 0; }
+    .hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; overflow: hidden; }
+    button[type="submit"] {
+      border: 0; background: var(--green); color: #fff; font-weight: 700;
+      padding: 0.95rem 1rem; cursor: pointer; margin-top: 0.35rem;
+    }
+    button[type="submit"]:hover { background: var(--green-dark); }
+    button[type="submit"]:disabled { opacity: 0.65; cursor: not-allowed; }
+    .fine { font-size: 0.75rem; color: var(--muted); margin: 0.75rem 0 0; }
+    .err {
+      display: none; background: #fef3f2; color: var(--danger);
+      border: 1px solid #fecdca; padding: 0.6rem 0.75rem; border-radius: 8px;
+      font-size: 0.85rem; margin-bottom: 0.75rem;
+    }
+    .ok {
+      display: none; background: #eaf8f1; color: var(--green-dark);
+      border: 1px solid #b6e3cd; padding: 1rem; border-radius: 10px;
+    }
+    .section { padding: 0 0 2.5rem; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    @media (max-width: 760px) { .grid3 { grid-template-columns: 1fr; } }
+    .mini {
+      background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem;
+    }
+    .mini h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+    .mini p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    footer {
+      border-top: 1px solid var(--line); padding: 1.5rem 0 2rem;
+      color: var(--muted); font-size: 0.82rem;
+    }
+    footer nav { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; margin-bottom: 0.75rem; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--green); }
+    .wire {
+      background: #fff8e8; border: 1px dashed #e0c36a; border-radius: 8px;
+      padding: 0.65rem 0.75rem; font-size: 0.78rem; margin-top: 0.75rem; color: #6a550e;
+    }
+    .cookie {
+      position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 40;
+      background: #10241c; color: #e8f5ef; padding: 1rem 1.1rem; border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25); display: none;
+      width: min(560px, calc(100% - 2rem)); margin: 0 auto;
+    }
+    .cookie p { margin: 0 0 0.75rem; font-size: 0.85rem; }
+    .cookie .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .cookie button {
+      width: auto; border: 0; border-radius: 8px; padding: 0.55rem 0.85rem;
+      font-weight: 650; cursor: pointer;
+    }
+    .cookie .accept { background: var(--teal); color: #062226; }
+    .cookie .essential { background: transparent; color: #fff; border: 1px solid #3d5a4d; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="logo" href="./index.html">Roof<span>Quote</span> UK</a>
+      <div class="badge">UK homeowners · MCS installer partners</div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <h1>Get a free solar quote for your home</h1>
+        <p class="lead">
+          Tell us a few details and we’ll connect you with <strong>one</strong> local MCS-certified installer partner.
+          No obligation. We’re not an installer — we pass your request on.
+        </p>
+        <ul class="bullets">
+          <li>UK homeowners welcome — postcode matched</li>
+          <li>Shared with one installer partner only (not a multi-company list)</li>
+          <li>Takes about 60 seconds</li>
+          <li>We don’t guarantee bill savings or provide energy advice</li>
+        </ul>
+        <div class="trust-pills">
+          <span>PECR / UK GDPR consent</span>
+          <span>Exclusive partner routing</span>
+          <span>No fake reviews</span>
+        </div>
+      </div>
+
+      <div class="card" id="form-card">
+        <h2>Request your quote</h2>
+        <p class="sub">A partner installer will contact you about a survey or quote.</p>
+        <div class="err" id="form-error" role="alert"></div>
+        <div class="ok" id="form-ok" role="status">
+          <strong>Thanks — your request is in.</strong>
+          <p style="margin:0.4rem 0 0;font-size:0.92rem;">A local installer partner will be in touch. Please keep your phone handy.</p>
+        </div>
+        <form id="lead-form" novalidate>
+          <label for="name">Full name</label>
+          <input id="name" name="name" autocomplete="name" required placeholder="Alex Smith" />
+
+          <div class="row">
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="07xxx xxxxxx" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@email.com" />
+            </div>
+          </div>
+
+          <label for="postcode">Postcode</label>
+          <input id="postcode" name="postcode" autocomplete="postal-code" required placeholder="e.g. SW1A 1AA" />
+
+          <div class="row">
+            <div>
+              <label for="homeowner">Are you the homeowner (or decision-maker)?</label>
+              <select id="homeowner" name="homeowner" required>
+                <option value="">Please select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div>
+              <label for="roof_type">Roof type (optional)</label>
+              <select id="roof_type" name="roof_type">
+                <option value="">Not sure</option>
+                <option value="pitched">Pitched</option>
+                <option value="flat">Flat</option>
+                <option value="mixed">Mixed</option>
+              </select>
+            </div>
+          </div>
+
+          <label for="battery_interest">Interested in battery storage too?</label>
+          <select id="battery_interest" name="battery_interest">
+            <option value="not_sure">Not sure</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+
+          <div class="hp" aria-hidden="true">
+            <label for="company_website">Company website</label>
+            <input id="company_website" name="honeypot" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <input type="hidden" name="utm_source" id="utm_source" />
+          <input type="hidden" name="utm_medium" id="utm_medium" />
+          <input type="hidden" name="utm_campaign" id="utm_campaign" />
+          <input type="hidden" name="utm_content" id="utm_content" />
+          <input type="hidden" name="consent_version" value="privacy_v1.0_2026-09-16" />
+          <input type="hidden" name="brand" value="RoofQuote UK" />
+
+          <label class="check">
+            <input type="checkbox" name="consent" id="consent" value="true" required />
+            <span>
+              I am a UK homeowner (or authorised decision-maker) and I agree that RoofQuote UK may share my name, phone number, email address, postcode and enquiry details with <strong>one</strong> carefully selected MCS-certified solar installer partner so they can contact me by phone, email or SMS about a solar quote. I understand this is not a commitment to buy. I have read the <a href="./privacy.html">Privacy Notice</a>.
+            </span>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" name="tips_optin" id="tips_optin" value="true" />
+            <span>Optional: email me occasional home-energy tips from RoofQuote UK. I can unsubscribe anytime. Separate from installer contact for this quote.</span>
+          </label>
+
+          <button type="submit" id="submit-btn">Request my free quote</button>
+          <p class="fine">By submitting, you confirm the information is accurate. RoofQuote UK does not install panels or provide regulated energy advice.</p>
+          <p class="wire"><strong>Wire-up:</strong> set <code>window.FORM_ENDPOINT</code> to your Make/Zapier webhook. Until then, local demo uses mailto fallback + console payload. Add Meta Pixel ID after cookie accept.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid3">
+        <div class="mini">
+          <h3>One partner</h3>
+          <p>Your details go to a single installer partner — not shopped around a long list.</p>
+        </div>
+        <div class="mini">
+          <h3>MCS-certified partners</h3>
+          <p>We work with MCS-certified solar installers. Verify certification on the official MCS register.</p>
+        </div>
+        <div class="mini">
+          <h3>Clear consent</h3>
+          <p>We record what you agreed to and when. Email us to exercise your data rights.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <nav>
+        <a href="./privacy.html">Privacy Notice</a>
+        <a href="./privacy.html#cookies">Cookies</a>
+        <a href="mailto:hello@getroofquote.uk">Contact</a>
+      </nav>
+      <p>
+        RoofQuote UK is a trading name for this quote-request service.
+        Controller: <strong>[LEGAL COMPANY NAME LTD]</strong> — replace before go-live.
+        Draft pending solicitor review. We are not an energy supplier or installer.
+      </p>
+    </footer>
+  </div>
+
+  <div class="cookie" id="cookie" role="dialog" aria-label="Cookie notice">
+    <p>We use essential cookies to run this form. With your OK, we’ll also use Meta/Google tags to measure quote requests. See Privacy Notice.</p>
+    <div class="actions">
+      <button type="button" class="accept" id="cookie-accept">Accept analytics</button>
+      <button type="button" class="essential" id="cookie-essential">Essential only</button>
+    </div>
+  </div>
+
+  <script>
+    // === WIRE FOR GO-LIVE ===
+    window.FORM_ENDPOINT = ""; // Make/Zapier catch hook, e.g. https://hook.eu2.make.com/...
+    window.META_PIXEL_ID = ""; // e.g. "1234567890"
+    window.MAILTO_FALLBACK = "mailto:leads@getroofquote.uk";
+
+    (function () {
+      const params = new URLSearchParams(location.search);
+      ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function (k) {
+        var el = document.getElementById(k);
+        if (el) el.value = params.get(k) || "";
+      });
+
+      function loadMetaPixel(id) {
+        if (!id || window.fbq) return;
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', id);
+        fbq('track', 'PageView');
+      }
+
+      var cookie = document.getElementById("cookie");
+      var pref = localStorage.getItem("rq_cookie");
+      if (!pref) cookie.style.display = "block";
+      if (pref === "all") loadMetaPixel(window.META_PIXEL_ID);
+
+      document.getElementById("cookie-accept").onclick = function () {
+        localStorage.setItem("rq_cookie", "all");
+        cookie.style.display = "none";
+        loadMetaPixel(window.META_PIXEL_ID);
+      };
+      document.getElementById("cookie-essential").onclick = function () {
+        localStorage.setItem("rq_cookie", "essential");
+        cookie.style.display = "none";
+      };
+
+      var form = document.getElementById("lead-form");
+      var err = document.getElementById("form-error");
+      var ok = document.getElementById("form-ok");
+      var btn = document.getElementById("submit-btn");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        err.style.display = "none";
+        var fd = new FormData(form);
+        var data = Object.fromEntries(fd.entries());
+        data.consent = !!document.getElementById("consent").checked;
+        data.tips_optin = !!document.getElementById("tips_optin").checked;
+        data.consent_ts = new Date().toISOString();
+        data.page = location.href;
+
+        if (!data.name || !data.phone || !data.email || !data.postcode || !data.homeowner) {
+          err.textContent = "Please complete the required fields.";
+          err.style.display = "block";
+          return;
+        }
+        if (!data.consent) {
+          err.textContent = "Please tick the consent box to continue.";
+          err.style.display = "block";
+          return;
+        }
+        if (data.homeowner === "no") {
+          err.textContent = "This service is for homeowners or authorised decision-makers.";
+          err.style.display = "block";
+          return;
+        }
+        if (data.honeypot) return;
+
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+
+        try {
+          if (window.FORM_ENDPOINT) {
+            var res = await fetch(window.FORM_ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error("Webhook error");
+          } else {
+            console.info("FORM_ENDPOINT not set — demo payload", data);
+            var subject = encodeURIComponent("Solar lead — " + data.postcode);
+            var body = encodeURIComponent(JSON.stringify(data, null, 2));
+            // Keep user on page for demo success; mailto opens as optional
+            window.open(window.MAILTO_FALLBACK + "?subject=" + subject + "&body=" + body, "_blank");
+          }
+
+          window.location.href = "thanks.html";
+          return;
+        } catch (ex) {
+          err.textContent = "Something went wrong sending your request. Please try again or email hello@getroofquote.uk.";
+          err.style.display = "block";
+          btn.disabled = false;
+          btn.textContent = "Request my free quote";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
