@@ -250,7 +250,6 @@
 
           <button type="submit" id="submit-btn">Request my free quote</button>
           <p class="fine">By submitting, you confirm the information is accurate. RoofQuote UK does not install panels or provide regulated energy advice.</p>
-          <p class="wire"><strong>Wire-up:</strong> set <code>window.FORM_ENDPOINT</code> to your Make/Zapier webhook. Until then, local demo uses mailto fallback + console payload. Add Meta Pixel ID after cookie accept.</p>
         </form>
       </div>
     </section>
@@ -296,7 +295,7 @@
 
   <script>
     // === WIRE FOR GO-LIVE ===
-    window.FORM_ENDPOINT = ""; // Make/Zapier catch hook, e.g. https://hook.eu2.make.com/...
+    window.FORM_ENDPOINT = "https://congratulations-chapters-quebec-attach.trycloudflare.com/lead"; // Make/Zapier catch hook, e.g. https://hook.eu2.make.com/...
     window.META_PIXEL_ID = ""; // e.g. "1234567890"
     window.MAILTO_FALLBACK = "mailto:leads@getroofquote.uk";
 
